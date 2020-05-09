@@ -11,13 +11,13 @@ if(NOT OBS_OUTPUT_DIR)
 
     find_path(LIBOBS_INCLUDE_DIR
         obs-module.h)
-    find_library(OBS_LIBRARIES
+    find_library(LIBOBS_LIB
         NAMES libobs obs)
 # Build as submodule of obs-studio
 else()
 	set(LIBOBS_INCLUDE_DIR
 		../../libobs)
-	set(OBS_LIBRARIES
+	set(LIBOBS_LIB
 		libobs)
 endif()
 
@@ -31,7 +31,7 @@ set(command-source_SOURCES obs-command-source.c)
 add_library(command-source MODULE ${command-source_SOURCES})
 
 target_link_libraries(command-source
-	${OBS_LIBRARIES}
+	${LIBOBS_LIB}
 	)
 
 install_obs_plugin_with_data(command-source data)
