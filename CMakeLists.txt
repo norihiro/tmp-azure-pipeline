@@ -34,4 +34,11 @@ target_link_libraries(command-source
 	${LIBOBS_LIB}
 	)
 
+# OSX
+if(APPLE)
+	target_link_libraries(command-source
+		"${OBS_FRONTEND_LIB}")
+endif()
+
+
 install_obs_plugin_with_data(command-source data)
