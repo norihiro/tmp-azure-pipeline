@@ -7,18 +7,12 @@ trigger:
 - master
 
 jobs:
-- job: Linux
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - script: echo hello from Linux
 - job: macOS
   pool:
     vmImage: 'macos-10.14'
   steps:
-  - script: echo hello from macOS
-- job: Windows
-  pool:
-    vmImage: 'windows-latest'
-  steps:
-  - script: echo hello from Windows
+  - checkout: self
+    submodules: true
+  - script: ./CI/install-dependencies-macos.sh
+  - script: ./CI/install-build-obs-macos.sh
+  - script: ./CI/build-macos.sh
