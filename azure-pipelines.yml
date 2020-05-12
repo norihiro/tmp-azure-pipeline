@@ -16,3 +16,11 @@ jobs:
   - script: ./CI/install-dependencies-macos.sh
   - script: ./CI/install-build-obs-macos.sh
   - script: ./CI/build-macos.sh
+
+  - script: ./CI/package-macos.sh
+    displayName: 'Package obs-command-source'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: './release'
+      artifactName: 'macos_build'
