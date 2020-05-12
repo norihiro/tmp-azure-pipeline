@@ -6,7 +6,7 @@ set /p PackageVersion=<package-version.txt
 del package-version.txt
 
 REM Package ZIP archive
-7z a "obs-ndi-%PackageVersion%-Windows.zip" "..\release\*"
+7z a "command-source-%PackageVersion%-Windows.zip" "..\release\*"
 
 REM Build installer
-iscc ..\installer\installer.iss /O. /F"obs-ndi-%PackageVersion%-Windows-Installer"
+iscc ..\installer\installer.iss /O. /F"command-source-%PackageVersion%-Windows-Installer"

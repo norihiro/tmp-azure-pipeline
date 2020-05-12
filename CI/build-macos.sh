@@ -16,10 +16,10 @@ fi
 
 #export QT_PREFIX="$(find /usr/local/Cellar/qt5 -d 1 | tail -n 1)"
 
-echo "[$0] Building 'obs-command-source' for macOS."
+echo "[$0] Building 'command-source' for macOS."
 mkdir -p build && cd build
 cmake .. \
-    -DCMAKE_OSX_DEPLOYMENT_TARGET=10.11 \
+	-DCMAKE_OSX_DEPLOYMENT_TARGET=10.11 \
 	-DQTDIR=/usr/local/opt/qt \
 	-DLIBOBS_INCLUDE_DIR=../../obs-studio/libobs \
 	-DLIBOBS_LIB=../../obs-studio/libobs \
