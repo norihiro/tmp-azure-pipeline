@@ -27,14 +27,38 @@ if (WIN32 OR APPLE)
 endif()
 
 find_package(LibObs REQUIRED)
-find_package(Qt5 REQUIRED Core Widgets)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets)
+
+configure_file(
+    src/plugin-macros.h.in
+    ../src/plugin-macros.generated.h
+)
+configure_file(
+    installer/installer-macOS.pkgproj.in
+    ../installer/installer-macOS.generated.pkgproj
+)
+configure_file(
+    installer/installer-Windows.iss.in
+    ../installer/installer-Windows.generated.iss
+)
+
+configure_file(
+    ci/ci_includes.sh.in
+    ../ci/ci_includes.generated.sh
+)
+configure_file(
+    ci/ci_includes.cmd.in
+    ../ci/ci_includes.generated.cmd
+)
+
 
 set(command-source_SOURCES obs-command-source.c)
 
-# set(command-source_HEADERS )
+set(command-source_HEADERS
+	src/plugin-macros.generated.h)
 
 # --- Platform-independent build settings ---
-add_library(${CMAKE_PROJECT_NAME} MODULE ${command-source_SOURCES})
+add_library(${CMAKE_PROJECT_NAME} MODULE ${command-source_SOURCES} ${command-source_HEADERS})
 
 
 include_directories(
