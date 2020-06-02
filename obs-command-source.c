@@ -2,7 +2,11 @@
 #include <util/platform.h>
 #include <sys/stat.h>
 #include <math.h>
+#ifdef _WIN32
+#include <Windows.h>
+#else
 #include <unistd.h>
+#endif
 
 struct command_source {
 	char *cmd_show;
@@ -19,9 +23,15 @@ OBS_MODULE_USE_DEFAULT_LOCALE("obs-command-source", "en-US")
 
 static void fork_exec(const char *cmd)
 {
+#ifdef _WIN32
+	PROCESS_INFORMATION pi = { 0 };
+	STARTUPINFO si = { sizeof(STARTUPINFO) };
+	CreateProcess(NULL, cmd, NULL, NULL, FALSE, BELOW_NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi);
+#else
 	if(!fork()) {
 		execl("/bin/sh", "sh", "-c", cmd, (char*)NULL);
 	}
+#endif
 }
 
 static void cmdsrc_show(void *data)
